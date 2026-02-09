@@ -1139,3 +1139,61 @@ body:not([data-theme="light"]) select:not(:focus) {
   background: rgba(255,255,255,.06);
   color: var(--text);
 }
+
+/* ============================================================
+   Color Picker S / V sliders – readable text (dark mode)
+   ============================================================ */
+
+body:not([data-theme="dark"])
+  .colorPickerPanel
+  .miniSlider
+  .miniLabel,
+body:not([data-theme="dark"])
+  .colorPickerPanel
+  .miniSlider
+  .miniValue {
+  color: #000 !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+  font-weight: 800;
+}
+
+body:not([data-theme="dark"])
+  .colorPickerPanel
+  .miniSlider {
+  background: rgba(255,255,255,.22);
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+body:not([data-theme="dark"])
+  .colorPickerPanel
+  input[type="range"] {
+  accent-color: #0a84ff;
+}
+
+body:not([data-theme="dark"])
+  .colorPickerPanel
+  input[type="range"]::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,.35),
+    rgba(255,255,255,.35)
+  );
+}
+
+body:not([data-theme="dark"])
+  .colorPickerPanel
+  input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  margin-top: -5px;
+  background: rgba(255,255,255,.95);
+  border: 1px solid rgba(0,0,0,.25);
+  box-shadow: 0 10px 22px rgba(0,0,0,.35);
+}
