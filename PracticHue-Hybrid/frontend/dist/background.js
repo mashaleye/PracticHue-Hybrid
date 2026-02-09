@@ -1,0 +1,1 @@
+chrome.runtime.onMessage.addListener((r,a,e)=>{if((r==null?void 0:r.type)==="CAPTURE_VISIBLE_TAB")return chrome.tabs.captureVisibleTab(null,{format:"png"},t=>{chrome.runtime.lastError?e({ok:!1,error:chrome.runtime.lastError.message}):e({ok:!0,dataUrl:t})}),!0});

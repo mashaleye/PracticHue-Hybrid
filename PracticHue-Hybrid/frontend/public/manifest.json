@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "PracticHue",
+  "version": "0.1.0",
+  "description": "Extract color palettes from your screen or uploads, with artistic insights.",
+
+  "action": {
+    "default_title": "PracticHue",
+    "default_popup": "index.html"
+  },
+
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+
+  "permissions": ["activeTab", "tabs", "storage", "clipboardWrite"],
+
+  "host_permissions": [
+    "http://127.0.0.1:8000/*",
+    "http://localhost:8000/*"
+  ]
+}
