@@ -1197,3 +1197,315 @@ body:not([data-theme="dark"])
   border: 1px solid rgba(0,0,0,.25);
   box-shadow: 0 10px 22px rgba(0,0,0,.35);
 }
+
+
+/* ============================================================
+   LIQUID GLASS: Segmented Control
+   ============================================================ */
+
+.segmented{
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+
+  padding: 4px;
+  border-radius: 18px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.18),
+    rgba(255,255,255,.06)
+  );
+
+  border: 1px solid rgba(255,255,255,.25);
+
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.6),
+    0 18px 50px rgba(0,0,0,.35);
+}
+
+/* subtle glass sheen */
+.segmented::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: inherit;
+  pointer-events:none;
+
+  background:
+    radial-gradient(120% 70% at 50% -20%, rgba(255,255,255,.55), transparent 60%),
+    linear-gradient(120deg, rgba(255,255,255,.25), transparent 40%);
+  mix-blend-mode: screen;
+  opacity:.6;
+}
+
+/* Buttons */
+.segBtn{
+  position: relative;
+  z-index: 1;
+
+  height: 42px;
+  border-radius: 14px;
+  border: none;
+
+  font-weight: 900;
+  letter-spacing: .4px;
+  font-size: 13px;
+
+  background: transparent;
+  color: var(--text);
+
+  cursor: pointer;
+
+  transition:
+    transform .15s ease,
+    background .15s ease,
+    box-shadow .15s ease;
+}
+
+/* Hover */
+.segBtn:hover{
+  transform: translateY(-1px);
+}
+
+/* Active segment */
+.segBtn.on{
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.40),
+    rgba(255,255,255,.18)
+  );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.75),
+    0 8px 22px rgba(0,0,0,.25);
+
+  color: #000; /* Black text for glass contrast */
+}
+
+/* Pressed */
+.segBtn:active{
+  transform: scale(.96);
+}
+
+/* LIGHT MODE refinement */
+body[data-theme="light"] .segBtn.on{
+  background: linear-gradient(
+    180deg,
+    rgba(120,170,255,.45),
+    rgba(120,170,255,.25)
+  );
+  color: #111827;
+}
+
+/* Segmented container (glass) */
+.segmented{
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 8px;
+
+  border-radius: 18px;
+  border: 1px solid var(--glass-stroke);
+  background: color-mix(in srgb, var(--glass-bg) 85%, transparent);
+
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+
+  overflow: hidden;
+
+  /* default values */
+  --seg-index: 0;
+  --seg-count: 3;
+}
+
+/* Sliding indicator */
+.segIndicator{
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 8px;
+
+  width: calc((100% - 16px - (8px * (var(--seg-count) - 1))) / var(--seg-count));
+  transform: translateX(calc(var(--seg-index) * (100% + 8px)));
+
+  border-radius: 14px;
+
+  /* match your Re-analyze blue */
+  background: linear-gradient(
+    180deg,
+    rgba(120,170,255,.55),
+    rgba(120,170,255,.28)
+  );
+  border: 1px solid rgba(120,170,255,.55);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.6),
+    0 12px 28px rgba(0,0,0,.35);
+
+  /* smooth + premium */
+  transition:
+    transform 260ms cubic-bezier(.2,.9,.2,1),
+    width 260ms cubic-bezier(.2,.9,.2,1),
+    background 200ms ease,
+    border-color 200ms ease,
+    box-shadow 220ms ease;
+  will-change: transform;
+}
+
+/* Buttons sit above the indicator */
+.segBtn{
+  position: relative;
+  z-index: 1;
+
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--glass-stroke) 60%, transparent);
+  background: rgba(255,255,255,.05);
+  color: var(--text);
+
+  font-weight: 900;
+  letter-spacing: .25px;
+  cursor: pointer;
+
+  display: grid;
+  place-items: center;
+
+  transition:
+    transform 120ms ease,
+    color 180ms ease,
+    opacity 180ms ease;
+}
+
+.segBtn:hover{ transform: translateY(-1px); }
+
+/* When selected: just change text tone (indicator handles the bg) */
+.segBtn.on{
+  color: #eef2ff;
+}
+
+/* Optional: de-emphasize non-selected */
+.segmented .segBtn:not(.on){
+  opacity: .9;
+}
+
+/* Press feedback */
+.segBtn:active{
+  transform: translateY(0) scale(.98);
+}
+
+/* Accessibility focus */
+.segBtn:focus{
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.btn.primary{
+  background: linear-gradient(
+    180deg,
+    rgba(120,170,255,.55),
+    rgba(120,170,255,.28)
+  );
+
+  border: 1px solid rgba(120,170,255,.55);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.55),
+    0 18px 44px rgba(0,0,0,.35);
+}
+
+.btn.primary::before{
+  background:
+    radial-gradient(120% 70% at 30% 0%, rgba(255,255,255,.55), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.25), transparent 60%);
+  opacity: .75;
+}
+
+.btn.primary:hover{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.65),
+    0 24px 60px rgba(0,0,0,.45);
+}
+
+.btn{
+  position: relative;
+  overflow: hidden;
+
+  height: 56px;
+  border-radius: 20px;
+
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+
+  backdrop-filter: blur(18px) saturate(1.35);
+  -webkit-backdrop-filter: blur(18px) saturate(1.35);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.45),
+    0 18px 48px rgba(0,0,0,.35);
+
+  font-weight: 900;
+  letter-spacing: .35px;
+  color: var(--text);
+
+  transition:
+    transform .15s ease,
+    box-shadow .18s ease,
+    border-color .18s ease,
+    background .18s ease;
+}
+
+.btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: inherit;
+  pointer-events:none;
+
+  background:
+    radial-gradient(140% 75% at 25% -10%, rgba(255,255,255,.55), transparent 60%),
+    linear-gradient(120deg, rgba(255,255,255,.25), transparent 40%, rgba(255,255,255,.12));
+
+  opacity:.75;
+  mix-blend-mode: screen;
+}
+
+.btn:hover{
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,.35);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.6),
+    0 24px 65px rgba(0,0,0,.45);
+}
+
+body[data-view="expanded"] .headerBtn{
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,255,255,.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 6px 16px rgba(0,0,0,.16);
+  backdrop-filter: blur(4px) saturate(1.02);
+  -webkit-backdrop-filter: blur(4px) saturate(1.02);
+  transition: transform .14s ease, border-color .14s ease, box-shadow .14s ease, background .14s ease;
+}
+body[data-view="expanded"] .headerBtn:hover{
+  transform: translateY(-1px);
+  border-color: rgba(120,170,255,.28);
+  background: rgba(255,255,255,.06);
+}
+body[data-view="expanded"] .headerBtn:active{
+  transform: translateY(0) scale(.98);
+}
+body[data-view="expanded"] .headerBtn.primary{
+  background: rgba(120,170,255,.16);
+  border-color: rgba(120,170,255,.32);
+}
+
+
+

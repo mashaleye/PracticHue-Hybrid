@@ -727,24 +727,40 @@ export default function App() {
       </div>
 
       <div className="expActions">
-        <button className="btn" onClick={toggleTheme}>
-          {theme === 'dark' ? 'Light mode' : 'Dark mode'}
-        </button>
+  <button className="btn headerBtn" onClick={toggleTheme}>
+    {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+  </button>
 
-        <button className="btn" onClick={copyAll} disabled={!cards?.length}>Copy all</button>
-        <button className="btn" onClick={downloadJSON} disabled={!cards?.length}>Download JSON</button>
+  <button className="btn headerBtn" onClick={copyAll} disabled={!cards?.length}>
+    Copy all
+  </button>
 
-        <button
-          className="btn primary"
-          onClick={() => refPreview && dataUrlToBlob(refPreview).then(analyze)}
-          disabled={loading || !refPreview}
-        >
-          {loading ? 'Analyzing…' : 'Re-analyze'}
-        </button>
+  <button className="btn headerBtn" onClick={downloadJSON} disabled={!cards?.length}>
+    Download JSON
+  </button>
 
-        <button className="btn" onClick={reset}>New Reference</button>
-        <button className="iconbtn" onClick={closeExpanded} title="Close tab" aria-label="Close tab">✕</button>
-      </div>
+  <button
+    className="btn primary headerBtn"
+    onClick={() => refPreview && dataUrlToBlob(refPreview).then(analyze)}
+    disabled={loading || !refPreview}
+  >
+    {loading ? 'Analyzing…' : 'Re-analyze'}
+  </button>
+
+  <button className="btn headerBtn" onClick={reset}>
+    New Reference
+  </button>
+
+  <button
+    className="iconbtn headerBtn"
+    onClick={closeExpanded}
+    title="Close tab"
+    aria-label="Close tab"
+  >
+    ✕
+  </button>
+</div>
+
     </div>
   )
 
@@ -926,7 +942,8 @@ export default function App() {
               <div className="meta">{statusPill.text}</div>
             </div>
 
-            <div className="row">
+            <div className="row captureRow">
+              
               <button className="btn primary" onClick={captureVisibleTab} disabled={loading}>
                 {loading ? 'Analyzing…' : '📸 Capture Tab'}
               </button>
@@ -1034,29 +1051,42 @@ export default function App() {
                   <div className="aiFormatMeta">HEX / RGB / HSL</div>
                 </div>
 
-                <div className="segmented">
-                  <button
-                    className={`segBtn ${displayFormat === 'hex' ? 'on' : ''}`}
-                    onClick={() => setDisplayFormat('hex')}
-                    type="button"
-                  >
-                    HEX
-                  </button>
-                  <button
-                    className={`segBtn ${displayFormat === 'rgb' ? 'on' : ''}`}
-                    onClick={() => setDisplayFormat('rgb')}
-                    type="button"
-                  >
-                    RGB
-                  </button>
-                  <button
-                    className={`segBtn ${displayFormat === 'hsl' ? 'on' : ''}`}
-                    onClick={() => setDisplayFormat('hsl')}
-                    type="button"
-                  >
-                    HSL
-                  </button>
-                </div>
+                <div
+  className="segmented"
+  data-value={displayFormat}
+  style={{
+    // 3 segments: 0=hex,1=rgb,2=hsl
+    ['--seg-index']: displayFormat === 'hex' ? 0 : displayFormat === 'rgb' ? 1 : 2,
+    ['--seg-count']: 3,
+  }}
+>
+  <span className="segIndicator" aria-hidden="true" />
+
+  <button
+    className={`segBtn ${displayFormat === 'hex' ? 'on' : ''}`}
+    onClick={() => setDisplayFormat('hex')}
+    type="button"
+  >
+    HEX
+  </button>
+
+  <button
+    className={`segBtn ${displayFormat === 'rgb' ? 'on' : ''}`}
+    onClick={() => setDisplayFormat('rgb')}
+    type="button"
+  >
+    RGB
+  </button>
+
+  <button
+    className={`segBtn ${displayFormat === 'hsl' ? 'on' : ''}`}
+    onClick={() => setDisplayFormat('hsl')}
+    type="button"
+  >
+    HSL
+  </button>
+</div>
+
               </div>
             </div>
           </div>
