@@ -712,17 +712,29 @@ export default function App() {
     URL.revokeObjectURL(url)
   }
 
-  const ExpandedHeader = () => (
+  const ExpandedHeader = () => {
+  const logoUrl = chrome.runtime.getURL('practichue-logo.png')
+
+  return (
     <div className="expHeader">
       <div className="expBrand">
-        <div className="logo" aria-hidden="true">🎨</div>
+       <div className="logoSlot" aria-hidden="true">
+    <div className="logoStackPeek">
+      <img src={logoUrl} alt="PracticHue" className="expLogo ghost top" draggable="false" />
+      <img src={logoUrl} alt="PracticHue" className="expLogo main" draggable="false" />
+      <img src={logoUrl} alt="PracticHue" className="expLogo ghost bottom" draggable="false" />
+    </div>
+  </div>
+
         <div className="expTitles">
           <div className="expTitleRow">
-            <h1>PracticHue</h1>
-            <span className={`statusDot ${backendOk ? 'ok' : backendOk === false ? 'bad' : 'muted'}`} aria-hidden="true" />
+            <span className={`statusDot ${backendOk ? 'ok' : backendOk === false ? 'bad' : 'muted'}`} />
             <span className="expStatusText">{statusPill.text}</span>
           </div>
-          <div className="sub">Full View • Capture • Upload • Palette</div>
+
+          <div className="sub">
+            Full View • Capture • Upload • Palette
+          </div>
         </div>
       </div>
 
@@ -761,8 +773,12 @@ export default function App() {
   </button>
 </div>
 
+    
     </div>
   )
+}
+
+  
 
   if (!hydrated) {
     return (
@@ -803,7 +819,8 @@ export default function App() {
         {step === 1 && (
           <>
             <div className="panel">
-              <p className="hint">“See the world, steal the palette.” Capture your current tab or upload a reference.</p>
+              <p className="hint">“See the world, steal the palette.” 
+                <br /> Capture your current tab or upload a reference.</p>
               <div style={{ height: 10 }} />
 
               <div className="row">
